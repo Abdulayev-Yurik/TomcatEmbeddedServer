@@ -5,7 +5,15 @@
 <body>
 <form action="/calendar">
     <input type="text" name="date" placeholder="enter date 2016-12-30"/><br>
-    <input type="text" name="custom_week" placeholder="enter start week 3"/><br>
+    <select name="custom_week">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+    </select><br>
     <input type="text" name="weekends" placeholder="enter weekends = 1,2,3"/><br>
     <input type="submit" value="view calendar"/>
 </form>
