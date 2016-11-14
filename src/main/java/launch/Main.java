@@ -15,23 +15,6 @@ import java.nio.file.Path;
 
 public class Main {
 
-    private static File getRootFolder() {
-        try {
-            File root;
-            String runningJarPath = Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replaceAll("\\\\", "/");
-            int lastIndexOf = runningJarPath.lastIndexOf("/target/");
-            if (lastIndexOf < 0) {
-                root = new File("");
-            } else {
-                root = new File(runningJarPath.substring(0, lastIndexOf));
-            }
-            System.out.println("application resolved root folder: " + root.getAbsolutePath());
-            return root;
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
     public static void main(String[] args) throws Exception {
 
         Tomcat tomcat = new Tomcat();
@@ -48,8 +31,8 @@ public class Main {
 
         WebResourceSet resourceSet;
         if (additionWebInfClassesFolder.exists()) {
-            resourceSet = new DirResourceSet(resources, "/WEB-INF/classes", additionWebInfClassesFolder.getAbsolutePath(), "/");
-            System.out.println("loading WEB-INF resources from as '" + additionWebInfClassesFolder.getAbsolutePath() + "'");
+            resourceSet = new DirResourceSet(resources, "/WEB-INF/classes",
+                    additionWebInfClassesFolder.getAbsolutePath(), "/");
         } else {
             resourceSet = new EmptyResourceSet(resources);
         }
