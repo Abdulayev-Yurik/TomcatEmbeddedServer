@@ -3,6 +3,9 @@
     <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 <body>
-${calendar}
+<table>
+<tr><a href="/">Back</a></tr><br>
+    ${calendar}
+</table>
 </body>
 </html>

@@ -30,29 +30,26 @@ public class CalendarServlet extends HttpServlet{
         try {
             calendar = new WebCalendar(getDate(req.getParameter("date")),
                     getStartDay(req.getParameter("custom_week")),
-                    getWeekends(req.getParameter("weekends")));
+                    getWeekends(req.getParameterValues("w")));
         }catch (Exception e){
             calendar = new WebCalendar();
         }
         String stringCalendar =
-                "<table>" +
-                "<tr><a href=\"/\">Back</a></tr><br>" +
                 calendar.getCurrentMonthHeader() +
                 calendar.getWeekNames() +
-                calendar.getMonthValues() +
-                "</table>" ;
+                calendar.getMonthValues();
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/jsp/calendar.jsp");
         req.setAttribute("calendar", stringCalendar);
         dispatcher.forward(req, resp);
     }
 
-    private List<DayOfWeek> getWeekends(String weekends) {
+    private List<DayOfWeek> getWeekends(String[] weekends) {
         List<DayOfWeek> listWeekends = new ArrayList<>();
-        if (weekends.isEmpty()) {
-            return Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
-        }
+//        if (weekends.isEmpty()) {
+//            return Arrays.asList(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+//        }
         int numberDay = 0;
-        for (String s : weekends.split(",")) {
+        for (String s : weekends) {
             numberDay = parseInt(s.trim());
             if ( numberDay >= DayOfWeek.MONDAY.getValue() && numberDay <= DayOfWeek.SUNDAY.getValue())
                 listWeekends.add(DayOfWeek.of(numberDay));
